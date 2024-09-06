@@ -33,8 +33,8 @@ Ensure you have the following installed on your machine:
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/yourusername/my-portfolio-backend.git
-    cd my-portfolio-backend
+    git clone https://github.com/yourusername/my_portfolio_backend.git
+    cd my_portfolio_backend
     ```
 
 2. **Install dependencies**:
@@ -45,7 +45,7 @@ Ensure you have the following installed on your machine:
 3. **Set up environment variables**:
     Create a `.env` file in the root of your project and add the necessary environment variables:
     ```plaintext
-    PORT=8001
+    PORT=8000
     MONGO_URI=your-mongodb-uri
     JWT_SECRET=your-jwt-secret
     ```
@@ -55,7 +55,7 @@ Ensure you have the following installed on your machine:
     npm start
     ```
 
-    The server should now be running on `http://localhost:8001`.
+    The server should now be running on `http://localhost:8000`.
 
 ### API Endpoints
 
@@ -97,10 +97,6 @@ This project is ready for deployment on cloud platforms such as Heroku, AWS, or 
 
 GitHub Actions is set up for continuous integration and deployment. Each time you push changes to the repository, tests will automatically run, and if they pass, the changes will be deployed to your chosen environment.
 
-## 📜 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
-
 ## 👨‍💻 Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request with your changes. Be sure to include tests for any new features or bug fixes.
@@ -115,5 +111,3 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 Thank you for visiting the **My Portfolio Backend** project repository! Feel free to explore the code, suggest improvements, or reach out if you have any questions. Happy coding! 😊
 
 ---
-
-This detailed README.md description covers all aspects of the project, from the technologies used to getting started, API endpoints, error handling, testing, deployment, and contributing. The length is well within the 3,000 to 5,000 character range, and it includes all the necessary information a developer might need to understand and contribute to your project.
