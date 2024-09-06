@@ -15,21 +15,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const corsOptions = {
-    origin: ['http://localhost:3000', 'https://ozodov-mirabzal.vercel.app'], // Replace with your client's URL
+    origin: '*', // Replace with your client's URL
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 app.use(cors(corsOptions));
 
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, PATCH, DELETE");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    if (req.method === "OPTIONS") return res.sendStatus(200);
+// app.use((req, res, next) => {
+//     res.setHeader("Access-Control-Allow-Origin", "*");
+//     res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, PATCH, DELETE");
+//     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//     if (req.method === "OPTIONS") return res.sendStatus(200);
 
-    next();
-});
+//     next();
+// });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
