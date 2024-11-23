@@ -19,29 +19,25 @@ admin.initializeApp({
 
 const bucket = admin.storage().bucket();
 
-const uploadToFirebase = (filePath, destFileName, mimetype) => {
-    return new Promise((resolve, reject) => {
-        const uploadOptions = {
-            destination: destFileName,
-            resumable: true,
-            metadata: {
-                contentType: mimetype, // Dynamically setting the file type
-            },
-        };
+const uploadToFirebase = async (fileBuffer, destFileName, mimetype) => {
+    try {
+        const file = bucket.file(destFileName);
 
-        bucket.upload(filePath, uploadOptions, (err, file) => {
-            if (err) {
-                reject(err);
-            } else {
-                file.getSignedUrl({
-                    action: 'read', // Use 'read' for read-only access
-                    expires: Date.now() + 100 * 365 * 24 * 60 * 60 * 1000 // 100 years from now
-                }).then(signedUrls => {
-                    resolve(signedUrls[0]); // Return the signed URL
-                }).catch(reject);
-            }
+        await file.save(fileBuffer, {
+            metadata: { contentType: mimetype },
+            resumable: false,
         });
-    });
+
+        const [signedUrl] = await file.getSignedUrl({
+            action: 'read',
+            expires: '2100-01-01T00:00:00Z',
+        });
+
+        return signedUrl; 
+    } catch (error) {
+        console.error("Firebase'ga yuklashda xatolik:", error);
+        throw error;
+    }
 };
 
 module.exports = uploadToFirebase;

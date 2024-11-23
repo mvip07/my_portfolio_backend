@@ -9,10 +9,10 @@ const mongoConnect = require("./utils/db").mongoConnect
 const app = express();
 require("dotenv").config();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const corsOptions = {
     origin: ['http://localhost:3000', 'https://ozodov-mirabzal.vercel.app'], // Replace with your client's URL
