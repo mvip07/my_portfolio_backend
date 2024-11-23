@@ -10,16 +10,20 @@ exports.createProject = async (req, res) => {
 
     try {
         if (req.file) {
-            const imageFilePath = req.file.path;
-            image = await uploadToFirebase(imageFilePath, `images/${req.file?.filename}`, req.file?.mimetype);
-            fs.unlinkSync(imageFilePath); // Delete file from local system
+            const imageFilePath = req.file.path;        
+            image = await uploadToFirebase(imageFilePath, `images/${req.file?.filename}`, req.file?.mimetype);        
+            if (fs.existsSync(imageFilePath)) {
+                fs.unlinkSync(imageFilePath);
+            } else {
+                console.warn(`Fayl topilmadi: ${imageFilePath}`);
+            }
         }
 
         const newProject = new Project({ title, image, description, serverLink, githubLink, category, technology });
         await newProject.save();
 
         res.status(200).json({ message: "You have created a successful Project" });
-    } catch (err) {
+    } catch (err) {        
         res.status(500).json({ message: err.message });
     }
 }

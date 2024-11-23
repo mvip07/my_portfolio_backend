@@ -1,15 +1,14 @@
-// fileUpload.js
-
 const multer = require('multer');
 const path = require('path');
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, "uploads/");
+			const uploadPath = path.join(__dirname, "../uploads"); // Absolyut yo'l
+			cb(null, uploadPath);
 	},
 	filename: function (req, file, cb) {
-		cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
-	}
+			cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
+	},
 });
 const upload = multer({ storage: storage });
 
