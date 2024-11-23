@@ -7,9 +7,7 @@ exports.createService = async (req, res) => {
     let icon = '';
     try {        
         if (req.file) {
-            const imageFilePath = req.file.path;
-            icon = await uploadToFirebase(imageFilePath, `images/${req.file?.filename}`, req.file?.mimetype);
-            fs.unlinkSync(imageFilePath); // Delete file from local system
+            icon = await uploadToFirebase(req.file.buffer, `icons/${Date.now()}-${req.file.originalname}`, req.file.mimetype);
         }
 
         const service = new Service({ title, description, icon });
@@ -54,9 +52,7 @@ exports.updateService = async (req, res) => {
     
     try {
         if (req.file) {
-            const imageFilePath = req.file.path;
-            iconUrl = await uploadToFirebase(imageFilePath, `images/${req.file?.filename}`, req.file?.mimetype);
-            fs.unlinkSync(imageFilePath); // Delete file from local system
+            iconUrl = await uploadToFirebase(req.file.buffer, `icons/${Date.now()}-${req.file.originalname}`, req.file.mimetype);
         }
 
         let service = await Service.findById(id);

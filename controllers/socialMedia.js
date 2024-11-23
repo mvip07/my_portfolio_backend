@@ -8,9 +8,7 @@ exports.createSocialMedia = async (req, res) => {
 
     try {
         if (req.file) {
-            const imageFilePath = req.file.path;
-            icon = await uploadToFirebase(imageFilePath, `images/${req.file?.filename}`, req.file?.mimetype);
-            fs.unlinkSync(imageFilePath); // Delete file from local system
+            icon = await uploadToFirebase(req.file.buffer, `icons/${Date.now()}-${req.file.originalname}`, req.file.mimetype);
         }
 
         const newSocialMedia = new SocialMedia({ title, url, icon });
@@ -51,9 +49,7 @@ exports.updateSocialMedia = async (req, res) => {
 
     try {
         if (req.file) {
-            const imageFilePath = req.file.path;
-            icon = await uploadToFirebase(imageFilePath, `images/${req.file?.filename}`, req.file?.mimetype);
-            fs.unlinkSync(imageFilePath); // Delete file from local system
+            icon = await uploadToFirebase(req.file.buffer, `icons/${Date.now()}-${req.file.originalname}`, req.file.mimetype);
         }
 
         const updatedSocialMedia = await SocialMedia.findByIdAndUpdate(

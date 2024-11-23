@@ -9,15 +9,13 @@ exports.createAbout = async (req, res) => {
 
     try {
         if (req.files?.cv) {
-            const cvFilePath = req.files.cv[0].path;
-            cvUrl = await uploadToFirebase(cvFilePath, `cvs/${req.files.cv[0].filename}`, req.files.cv[0].mimetype);
-            fs.unlinkSync(cvFilePath); // Delete file from local system
+            const cvFile = req.files.cv[0];
+            cvUrl = await uploadToFirebase(cvFile.buffer, `cvs/${Date.now()}-${cvFile.originalname}`, cvFile.mimetype);
         }
-
+        
         if (req.files?.image) {
-            const imageFilePath = req.files.image[0].path;
-            imageUrl = await uploadToFirebase(imageFilePath, `images/${req.files.image[0].filename}`, req.files.image[0].mimetype);
-            fs.unlinkSync(imageFilePath); // Delete file from local system
+            const imageFile = req.files.image[0];
+            imageUrl = await uploadToFirebase(imageFile.buffer, `images/${Date.now()}-${imageFile.originalname}`, imageFile.mimetype);
         }
 
         let about = await About.findOne({});
@@ -71,15 +69,13 @@ exports.updateAbout = async (req, res) => {
 
     try {
         if (req.files?.cv) {
-            const cvFilePath = req.files.cv[0].path;
-            cvUrl = await uploadToFirebase(cvFilePath, `cvs/${req.files.cv[0].filename}`, req.files.cv[0].mimetype);
-            fs.unlinkSync(cvFilePath); // Delete file from local system
+            const cvFile = req.files.cv[0];
+            cvUrl = await uploadToFirebase(cvFile.buffer, `cvs/${Date.now()}-${cvFile.originalname}`, cvFile.mimetype);
         }
-
+        
         if (req.files?.image) {
-            const imageFilePath = req.files.image[0].path;
-            imageUrl = await uploadToFirebase(imageFilePath, `images/${req.files.image[0].filename}`, req.files.image[0].mimetype);
-            fs.unlinkSync(imageFilePath); // Delete file from local system
+            const imageFile = req.files.image[0];
+            imageUrl = await uploadToFirebase(imageFile.buffer, `images/${Date.now()}-${imageFile.originalname}`, imageFile.mimetype);
         }
 
         let about = await About.findOne({});
